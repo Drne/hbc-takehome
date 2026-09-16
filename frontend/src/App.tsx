@@ -1,12 +1,14 @@
-import {useState} from 'react'
-import {createGlobalStyle} from 'styled-components'
-import {ChatPanel} from './components/ChatPanel'
-import {CustomerSidebar} from './components/CustomerSidebar'
-import {EmployeeSelector} from './components/EmployeeSelector'
-import {OrderHistoryPanel} from './components/OrderHistoryPanel'
-import {AppShell, HeaderRow, Page, SecondaryButton, Title} from './components/common'
-import {useEmployees} from './hooks'
-import type {Employee} from './types'
+import { useState } from 'react';
+import { createGlobalStyle } from 'styled-components';
+import ChatPanel from './components/ChatPanel';
+import { CustomerSidebar } from './components/CustomerSidebar';
+import { EmployeeSelector } from './components/EmployeeSelector';
+import OrderHistoryPanel from './components/OrderHistoryPanel';
+import {
+  AppShell, HeaderRow, Page, SecondaryButton, Title,
+} from './components/common';
+import { useCustomers, useEmployees, useUpdateEvent } from './hooks';
+import type { Employee } from './types';
 
 const GlobalStyle = createGlobalStyle`
  * { box-sizing: border-box; }
@@ -24,42 +26,52 @@ const GlobalStyle = createGlobalStyle`
  button, input, select {
    font: inherit;
  }
-`
+`;
 
 export default function App() {
- const {employees} = useEmployees()
- const [currentEmployee, setCurrentEmployee] = useState<Employee | null>(null)
- const [selectedCustomerId, setSelectedCustomerId] = useState<number | null>(null)
+  const { employees } = useEmployees();
+  const [currentEmployee, setCurrentEmployee] = useState<Employee | null>(null);
+  const [selectedCustomerId, setSelectedCustomerId] = useState<number | null>(null);
 
- if (!currentEmployee) {
-   return (
-     <>
-       <GlobalStyle />
-       <Page>
-         <EmployeeSelector employees={employees} onSelect={setCurrentEmployee} />
-       </Page>
-     </>
-   )
- }
+  const {
+    customers, createCustomer, updateCustomer, deleteCustomer, refetch,
+  } = useCustomers();
 
- return (
-   <>
-     <GlobalStyle />
-     <Page>
-       <HeaderRow>
-         <div>
-           <Title>Employee Sales Console</Title>
-           <div style={{color: '#475569', marginTop: 6}}>Logged in as {currentEmployee.name}</div>
-         </div>
-         <SecondaryButton onClick={() => setCurrentEmployee(null)}>Switch employee</SecondaryButton>
-       </HeaderRow>
+  // If we see an update event for customer, invalidate and refetch the data
+  useUpdateEvent('customer', refetch);
 
-       <AppShell>
-         <CustomerSidebar selectedCustomerId={selectedCustomerId} onSelect={setSelectedCustomerId} />
-         <OrderHistoryPanel selectedCustomerId={selectedCustomerId} currentEmployee={currentEmployee} employees={employees} />
-         <ChatPanel currentEmployee={currentEmployee} />
-       </AppShell>
-     </Page>
-   </>
- )
+  if (!currentEmployee) {
+    return (
+      <>
+        <GlobalStyle />
+        <Page>
+          <EmployeeSelector employees={employees} onSelect={setCurrentEmployee} />
+        </Page>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <GlobalStyle />
+      <Page>
+        <HeaderRow>
+          <div>
+            <Title>Employee Sales Console</Title>
+            <div style={{ color: '#475569', marginTop: 6 }}>
+              Logged in as
+              {` ${currentEmployee.name}`}
+            </div>
+          </div>
+          <SecondaryButton onClick={() => setCurrentEmployee(null)}>Switch employee</SecondaryButton>
+        </HeaderRow>
+
+        <AppShell>
+          <CustomerSidebar selectedCustomerId={selectedCustomerId} onSelect={setSelectedCustomerId} customers={customers} updateCustomer={updateCustomer} createCustomer={createCustomer} deleteCustomer={deleteCustomer} />
+          <OrderHistoryPanel selectedCustomerId={selectedCustomerId} currentEmployee={currentEmployee} employees={employees} customers={customers} />
+          <ChatPanel currentEmployee={currentEmployee} />
+        </AppShell>
+      </Page>
+    </>
+  );
 }

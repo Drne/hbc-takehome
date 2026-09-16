@@ -1,34 +1,33 @@
-import {useEffect} from 'react'
-import {useSocket} from './useSocket'
+import { useEffect } from 'react';
+import { useSocket } from './useSocket';
 
-export type UpdateEventPayload = {
-  entity?: string
-  action?: string
-  id?: number
-  data?: unknown
+export interface UpdateEventPayload {
+  entity?: string;
+  action?: string;
+  id?: number;
+  data?: unknown;
 }
 
-
-
 export function useUpdateEvent(eventEntity: string, refetchCallback: () => void) {
-  const {socketRef} = useSocket()
+  const { socketRef } = useSocket();
 
   useEffect(() => {
-    const socket = socketRef.current
+    const socket = socketRef.current;
     if (!socket) {
-      return
+      return;
     }
 
     const handleUpdate = (payload: UpdateEventPayload) => {
-      const entity = payload.entity?.toLowerCase()
+      const entity = payload.entity?.toLowerCase();
       if (entity === eventEntity) {
-        refetchCallback()
+        refetchCallback();
       }
-    }
+    };
 
-    socket.on('update', handleUpdate)
+    socket.on('update', handleUpdate);
+
     return () => {
-      socket.off('update', handleUpdate)
-    }
-  }, [eventEntity, refetchCallback, socketRef])
+      socket.off('update', handleUpdate);
+    };
+  }, [eventEntity, refetchCallback, socketRef]);
 }

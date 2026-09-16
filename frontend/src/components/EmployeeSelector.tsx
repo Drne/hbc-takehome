@@ -1,13 +1,13 @@
-import styled from 'styled-components'
-import type {Employee} from '../types'
-import {HeaderRow, LoginShell, PrimaryButton, Title} from './common'
+import styled from 'styled-components';
+import type { Employee } from '../types';
+import { HeaderRow, LoginShell, Title } from './common';
 
 const EmployeeGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 16px;
   margin-top: 24px;
-`
+`;
 
 const EmployeeCard = styled.button`
   padding: 20px;
@@ -23,32 +23,32 @@ const EmployeeCard = styled.button`
     transform: translateY(-1px);
     box-shadow: 0 10px 24px rgba(86, 108, 255, 0.12);
   }
-`
+`;
 
 const EmployeeName = styled.div`
   font-size: 1.1rem;
   font-weight: 700;
-`
+`;
 
 const EmployeeRole = styled.div`
   margin-top: 6px;
   color: #64748b;
   font-size: 0.9rem;
-`
+`;
 
-type EmployeeSelectorProps = {
-  employees: Employee[]
-  onSelect: (employee: Employee) => void
-  onSwitch?: () => void
+interface EmployeeSelectorProps {
+  employees: Employee[];
+  onSelect: (employee: Employee) => void;
+  onSwitch?: () => void;
 }
 
-export function EmployeeSelector({employees, onSelect}: EmployeeSelectorProps) {
+export function EmployeeSelector({ employees, onSelect }: EmployeeSelectorProps) {
   return (
     <LoginShell>
       <HeaderRow>
         <div>
           <Title>Employee Sales Console</Title>
-          <p style={{margin: '8px 0 0', color: '#475569'}}>Select your employee profile to continue</p>
+          <p style={{ margin: '8px 0 0', color: '#475569' }}>Select your employee profile to continue</p>
         </div>
       </HeaderRow>
       <EmployeeGrid>
@@ -60,8 +60,8 @@ export function EmployeeSelector({employees, onSelect}: EmployeeSelectorProps) {
         ))}
       </EmployeeGrid>
       {employees.length === 0 && (
-        <div style={{marginTop: 20, color: '#64748b'}}>No employees available yet.</div>
+        <div style={{ marginTop: 20, color: '#64748b' }}>No employees available yet.</div>
       )}
     </LoginShell>
-  )
+  );
 }

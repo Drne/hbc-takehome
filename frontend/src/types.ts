@@ -1,31 +1,31 @@
-export type ChatMessage = {
-    id: string
-    employeeName: string
-    text: string
-    createdAt: string
+export interface ChatMessage {
+  id: string;
+  employeeName: string;
+  text: string;
+  createdAt: string;
 }
-export type Product = {
-    id: number
-    name: string
-    price: number
-}
-
-export type Employee = {
-    id: number
-    name: string
+export interface Product {
+  id: number;
+  name: string;
+  price: number;
 }
 
-export type Customer = {
-    id: number
-    firstName: string
-    middleInitial?: string | null
-    lastName: string
+export interface Employee {
+  id: number;
+  name: string;
 }
 
-export type Order = {
-    id: number
-    salesPersonId: number
-    customerId: number
-    productId: number
-    quantity: number
+export interface Customer {
+  id: number;
+  firstName: string;
+  middleInitial?: string | null;
+  lastName: string;
+}
+
+export interface Order {
+  id: number;
+  salesPersonId: number;
+  customerId: number;
+  productId: number;
+  quantity: number;
 }

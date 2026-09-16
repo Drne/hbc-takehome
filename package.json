@@ -1,16 +1,17 @@
 {
-  "name": "coding-interview-starter",
+  "name": "HBC Take-home excercise",
   "version": "1.0.0",
   "private": true,
-  "description": "Full-stack TypeScript starter",
+  "description": "",
   "scripts": {
-    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
-    "dev:frontend": "cd frontend && npm run dev",
-    "dev:backend": "cd backend && npm run dev",
-    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install",
-    "build": "npm run build:frontend && npm run build:backend",
+    "dev": "concurrently --names backend,frontend --prefix-colors blue,green \"python3 -m backend.main\" \"cd frontend && npm run dev -- --host 0.0.0.0 --port 5173\"",
+    "dev:frontend": "cd frontend && npm run dev -- --host 0.0.0.0 --port 5173",
+    "dev:backend": "python3 -m backend.main",
+    "install:all": "python3 -m pip install -r ./backend/requirements.txt && npm install && cd frontend && npm install",
+    "build": "npm run build:frontend && python -m compileall backend",
     "build:frontend": "cd frontend && npm run build",
-    "build:backend": "cd backend && npm run build"
+    "build:backend": "python -m compileall backend",
+    "dev:all": "npm run install:all && npm run dev"
   },
   "devDependencies": {
     "concurrently": "^9.2.1"

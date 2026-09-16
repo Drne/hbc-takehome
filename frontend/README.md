@@ -90,6 +90,7 @@ The following was considered out of scope for the sake of this exercise.
 - No auth and authorization model: there is no session or JWT flow, RBAC, or route protection.
 - Limited testing strategy: there are no unit/component/integration tests in the frontend layer.
 - No observability or error reporting: no telemetry, logging pipeline, or monitoring hooks.
+- Layout for very small screens
 
 ## Running locally
 

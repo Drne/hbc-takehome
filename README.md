@@ -2,6 +2,9 @@
 
 This project contains a FastAPI backend and a React + Vite frontend. The quickest way to get both running locally is to install the dependencies and start the root dev script.
 
+## Documentation
+For detailed writeups on the backend and frontend, see the relevant README's in the frontend or backend dir.
+
 ## Prerequisites
 
 - Node.js 18+

@@ -51,7 +51,7 @@ export const Panel = styled.section`
   border-radius: 18px;
   box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06);
   padding: 20px;
-  overflow: scroll;
+  overflow: auto;
 `;
 
 export const PanelHeader = styled.div`

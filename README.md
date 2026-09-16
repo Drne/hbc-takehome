@@ -14,6 +14,13 @@ For detailed writeups on the backend and frontend, see the relevant README's in 
 
 ## One-time setup
 
+If you want to install deps and run the local servers in one go:
+```bash
+npm run dev:all
+```
+
+If you would like to do things step by step:
+
 From the repository root:
 
 ```bash
@@ -75,25 +82,6 @@ The backend serves the API from the port specified by `PORT` (default is `8001` 
 ```bash
 cd frontend
 npm run dev -- --host 0.0.0.0 --port 5173
-```
-
-### Alternative helper script
-
-There is also a shell wrapper that starts both processes together:
-
-```bash
-./run-dev.sh
-```
-
-This script defaults to:
-
-- backend: http://localhost:8000
-- frontend: http://localhost:5173
-
-You can override the ports as needed:
-
-```bash
-BACKEND_PORT=8001 FRONTEND_PORT=5173 ./run-dev.sh
 ```
 
 ## Typical local workflow
